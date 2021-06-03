@@ -35,9 +35,15 @@ void Mesh::CreateMesh(GLfloat* vertices, unsigned int* indices, unsigned int num
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * numOfVertices, vertices, GL_STATIC_DRAW);
 
     // Define the Attribute Pointer formatting
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]) * 8, 0);
     // Enable the Attribute Pointer
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertices) * 8, (void*)(sizeof(vertices[0]) * 3));
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vertices) * 8, (void*)(sizeof(vertices[0]) * 5));
+    glEnableVertexAttribArray(2);
 
     // Unbind the VAO and VBO, ready for the next object to be bound
     glBindBuffer(GL_ARRAY_BUFFER, 0);
