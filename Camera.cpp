@@ -76,9 +76,14 @@ glm::mat4 Camera::CalculateViewMatrix()
 	return glm::lookAt(position, position + front, up);
 }
 
-glm::vec3 Camera::getCameraPosition()
+glm::vec3 Camera::GetCameraPosition()
 {
 	return position;
+}
+
+glm::vec3 Camera::GetCameraDirection()
+{
+	return glm::normalize(front);
 }
 
 void Camera::Update()
