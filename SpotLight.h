@@ -21,8 +21,10 @@ public:
 	void SetFlash(glm::vec3 pos, glm::vec3 dir);
 
 private:
+	// Direction of the spotlight that is actually facing
 	glm::vec3 direction;
 
+	// Edge is going to be where the how much is not going to be drawn on
 	GLfloat edge, procEdge;
 };
 

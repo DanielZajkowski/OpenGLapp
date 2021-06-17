@@ -11,6 +11,7 @@ public:
 	~Texture();
 
 	bool LoadTexture();
+	// A for alpha channel
 	bool LoadTextureA();
 
 	void UseTexture();

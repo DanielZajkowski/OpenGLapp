@@ -11,9 +11,10 @@ public:
 	~Light();
 
 protected:
-	// Ambient lighting
 	glm::vec3 colour;
+	// Ambient lighting - Simulates light bouncing off other objects. Not required a direction.
 	GLfloat ambientIntensity;
+	// Diffuse lighting - Simulates the drop-off of lighting as angle of lighting becomes more shallow. Required a direction.
 	GLfloat diffuseIntensity;
 };
 

@@ -10,6 +10,7 @@ SpotLight::SpotLight() : PointLight()
 SpotLight::SpotLight(GLfloat red, GLfloat green, GLfloat blue, GLfloat aIntensity, GLfloat dIntensity, GLfloat xPos, GLfloat yPos, GLfloat zPos, GLfloat xDir, GLfloat yDir, GLfloat zDir, GLfloat con, GLfloat lin, GLfloat exp, GLfloat edg) 
 	: PointLight(red, green, blue, aIntensity, dIntensity, xPos, yPos, zPos, con, lin, exp)
 {
+	// Direction don't need a magnitude, they just need to be unit vectors
 	direction = glm::normalize(glm::vec3(xDir, yDir, zDir));
 	edge = edg;
 	procEdge = cosf(glm::radians(edge));

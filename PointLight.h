@@ -16,6 +16,7 @@ public:
 
 protected:
 	glm::vec3 position;
+	// Variables needed to calculate the attenuation of point light, which is how the light sort of drops off over a distance
 	GLfloat constant, linear, exponent;
 };
 

@@ -52,6 +52,7 @@ uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
+// This sampler is connected to texture through the tuxture unit
 uniform sampler2D theTexture;
 uniform Material material;
 
@@ -61,7 +62,9 @@ vec4 CalcLightByDirection(Light light, vec3 direction)
 {
     vec4 ambientColour = vec4(light.colour, 1.0f) * light.ambientIntensity;
 
+    // Calculating the result of the angle of the light 
     float diffuseFactor = max(dot(normalize(Normal), normalize(direction)), 0.0f);
+    // Calculating how much light we need 
     vec4 diffuseColour = vec4(light.colour, 1.0f) * light.diffuseIntensity * diffuseFactor;
 
     vec4 specularColour = vec4(0, 0, 0, 0);
@@ -69,8 +72,10 @@ vec4 CalcLightByDirection(Light light, vec3 direction)
     if(diffuseFactor > 0.0f)
     {
         vec3 fragToEye = normalize(eyePosition - FragPos);
+        // Direction that the light is being reflected in
         vec3 reflectedVertex = normalize(reflect(direction, normalize(Normal)));
 
+        // Angle between two vectors to use as factor to see how much specular lighting will be at specific point
         float specularFactor = dot(fragToEye, reflectedVertex);
         if(specularFactor > 0.0f)
         {

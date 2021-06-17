@@ -1,7 +1,9 @@
 #version 330  
 
+// The position define where the object is or where the vertex is in relation to the origin point
 layout (location = 0) in vec3 pos; 
 layout (location = 1) in vec2 tex;
+// The normal is it just a direction from the postion and it is the direction perpendicular to the surface of an object
 layout (location = 2) in vec3 norm;
 
 out vec4 vCol;

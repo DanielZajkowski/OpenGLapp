@@ -226,6 +226,7 @@ int main()
         uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
         uniformShininess = shaderList[0].GetShininessLocation();
 
+        // Adding spotlight to camera
         glm::vec3 lowerLight = camera.GetCameraPosition();
         lowerLight.y -= 0.3f;
         spotLights[0].SetFlash(lowerLight, camera.GetCameraDirection());

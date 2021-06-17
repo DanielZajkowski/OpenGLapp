@@ -192,7 +192,8 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
         return;
     }
 
-    uniformProjection = glGetUniformLocation(shaderID, "projection"); // for location
+    // Taking values from the shaders
+    uniformProjection = glGetUniformLocation(shaderID, "projection");
     uniformModel = glGetUniformLocation(shaderID, "model");
     uniformView = glGetUniformLocation(shaderID, "view");
     uniformDirectionlLight.uniformColour = glGetUniformLocation(shaderID, "directionalLight.base.colour");
@@ -202,7 +203,6 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
     uniformEyePosition = glGetUniformLocation(shaderID, "eyePosition");
     uniformSpecularIntensity = glGetUniformLocation(shaderID, "material.specularIntensity");
     uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
-
     uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightCount");
 
     for (size_t i = 0; i < MAX_POINT_LIGHTS; i++)
