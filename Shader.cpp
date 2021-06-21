@@ -158,6 +158,21 @@ void Shader::SetSpotLights(SpotLight* sLight, unsigned int lightCount)
     }
 }
 
+void Shader::SetTexture(GLuint textureUnit)
+{
+    glUniform1i(uniformTexture, textureUnit);
+}
+
+void Shader::SetDirectionalShadowMap(GLuint textureUnit)
+{
+    glUniform1i(uniformDirectionalShadowMap, textureUnit);
+}
+
+void Shader::SetDirectionalLightTransform(glm::mat4* lTransform)
+{
+    glUniformMatrix4fv(uniformDirectionalLightTransform, 1, GL_FALSE, glm::value_ptr(*lTransform));
+}
+
 void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
 {
     shaderID = glCreateProgram();
@@ -204,6 +219,10 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
     uniformSpecularIntensity = glGetUniformLocation(shaderID, "material.specularIntensity");
     uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
     uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightCount");
+    uniformSpotLightCount = glGetUniformLocation(shaderID, "spotLightCount");
+    uniformTexture = glGetUniformLocation(shaderID, "theTexture");
+    uniformDirectionalLightTransform = glGetUniformLocation(shaderID, "directionalLightTransform");
+    uniformDirectionalShadowMap = glGetUniformLocation(shaderID, "directionalShadowMap");
 
     for (size_t i = 0; i < MAX_POINT_LIGHTS; i++)
     {
@@ -230,8 +249,6 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
         snprintf(locBuff, sizeof(locBuff), "pointLights[%d].exponent", i);
         uniformPointLight[i].uniformExponent = glGetUniformLocation(shaderID, locBuff);
     }
-
-    uniformSpotLightCount = glGetUniformLocation(shaderID, "spotLightCount");
 
     for (size_t i = 0; i < MAX_SPOT_LIGHTS; i++)
     {

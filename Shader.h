@@ -5,9 +5,10 @@
 #include <fstream>
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "CommonValues.h"
-
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "SpotLight.h"
@@ -36,16 +37,20 @@ public:
 
 	void UseShader();
 	void ClearShader();
+
 	void SetDirectionLight(DirectionalLight* dLight);
 	void SetPointLights(PointLight* pLight, unsigned int lightCount);
 	void SetSpotLights(SpotLight* sLight, unsigned int lightCount);
+	void SetTexture(GLuint textureUnit);
+	void SetDirectionalShadowMap(GLuint textureUnit);
+	void SetDirectionalLightTransform(glm::mat4* lTransform);
 
 private:
 	int pointLightCount;
 	int spotLightCount;
 
 	// Uniform used to find location to bind a value to it
-	GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformEyePosition, uniformSpecularIntensity, uniformShininess;
+	GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformEyePosition, uniformSpecularIntensity, uniformShininess, uniformTexture, uniformDirectionalLightTransform, uniformDirectionalShadowMap;
 
 	struct 
 	{
