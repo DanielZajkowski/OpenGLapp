@@ -43,7 +43,7 @@ Texture plainTexture;
 Material shinyMaterial;
 Material dullMaterial;
 
-Model maya;
+Model boat;
 Model seahawk;
 
 DirectionalLight mainLight;
@@ -57,6 +57,7 @@ GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
 GLfloat seahawkAngle = 0.0f;
+GLfloat boatAngle = 0.0f;
 
 // Vertex Shader
 static const char* vShader = "Shaders/shader.vert";
@@ -155,8 +156,6 @@ void RenderScene()
     glm::mat4 model(1.0f);
 
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
-    //model = glm::rotate(model, currAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f)); 
-    //model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     brickTexture.UseTexture();
     shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -176,11 +175,22 @@ void RenderScene()
     dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[2]->RenderMesh();
 
+    boatAngle += 0.1f;
+    if (boatAngle > 360.0f)
+    {
+        boatAngle = 0.1f;
+    }
+
     model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(3.0f, -1.0f, 0.0f));
+    model = glm::rotate(model, -boatAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::translate(model, glm::vec3(-4.0f, -0.5f, 0.0f));
+    model = glm::rotate(model, -90.0f * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, 20.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::scale(model, glm::vec3(0.001f, 0.001f, 0.001f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
     dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-    maya.RenderModel();
+    boat.RenderModel();
 
     seahawkAngle += 0.1f;
     if (seahawkAngle > 360.0f)
@@ -279,8 +289,8 @@ int main()
     shinyMaterial = Material(1.0f, 32.0f);
     dullMaterial = Material(0.3f, 4.0f);
 
-    maya = Model();
-    maya.LoadModel("Models/maya.obj");
+    boat = Model();
+    boat.LoadModel("Models/Boat.obj");
 
     seahawk = Model();
     seahawk.LoadModel("Models/Seahawk.obj");
