@@ -5,7 +5,9 @@ class SpotLight : public PointLight
 {
 public:
 	SpotLight();
-	SpotLight(GLfloat red, GLfloat green, GLfloat blue,
+	SpotLight(GLuint shadowWidth, GLuint shadowHeight,
+		GLfloat near, GLfloat far,
+		GLfloat red, GLfloat green, GLfloat blue,
 		GLfloat aIntensity, GLfloat dIntensity,
 		GLfloat xPos, GLfloat yPos, GLfloat zPos,
 		GLfloat xDir, GLfloat yDir, GLfloat zDir,
@@ -19,6 +21,7 @@ public:
 		GLuint edgeLocation);
 
 	void SetFlash(glm::vec3 pos, glm::vec3 dir);
+	void Toggle() { isOn = !isOn; }
 
 private:
 	// Direction of the spotlight that is actually facing
@@ -26,5 +29,7 @@ private:
 
 	// Edge is going to be where the how much is not going to be drawn on
 	GLfloat edge, procEdge;
+
+	bool isOn;
 };
 

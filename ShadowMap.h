@@ -17,7 +17,7 @@ public:
 	GLuint GetShadowWidth() { return shadowWidth; }
 	GLuint GetShadowHeight() { return shadowHeight; }
 
-private:
+protected:
 	// FBO - framebuffer object
 	GLuint FBO, shadowMap;
 	// Needed when changing the size of viewport

@@ -30,18 +30,22 @@ bool ShadowMap::Init(GLuint width, GLuint height)
 
 	glGenTextures(1, &shadowMap);
 	glBindTexture(GL_TEXTURE_2D, shadowMap);
+	// GL_DEPTH_COMPONENT - single float value, unlike RGB which had three values
+	// Setting Data to nullptr to create an empty texture with dimensions width x height
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowWidth, shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	float bColour[] = { 1.0f,1.0f,1.0f,1.0f };
-	glGetMinmaxParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bColour);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	float bColour[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glGetMinmaxParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bColour);
 
+	// Set Framebuffer to write texture 
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	// GL_DEPTH_ATTACHMENT - tells Framebuffer to only write Depth Buffer data
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, shadowMap, 0);
 
-	// Depth test
+	// Override colour data draw/read operator, to not output colour with our shadow map
 	glDrawBuffer(GL_NONE);
 	glReadBuffer(GL_NONE);
 
@@ -60,7 +64,7 @@ bool ShadowMap::Init(GLuint width, GLuint height)
 
 void ShadowMap::Write()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
 }
 
 void ShadowMap::Read(GLenum textureUnit)
