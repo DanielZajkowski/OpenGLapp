@@ -16,6 +16,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{a87ad083-04a4-4088-a5f8-fa994b433f51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{ee08f1a3-9436-462e-b008-1926341480c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{abfb5abf-40b2-4399-ab27-725c7601aedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures\Skybox">
+      <UniqueIdentifier>{fc925ffd-224f-41f2-8948-d2c8c18cfe68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -58,6 +67,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OmniShadowMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,6 +119,9 @@
     <ClInclude Include="OmniShadowMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.frag">
@@ -130,5 +145,87 @@
     <None Include="Shaders\omni_shadow_map.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\skybox.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\skybox.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Models\Boat.mtl">
+      <Filter>Models</Filter>
+    </None>
+    <None Include="Models\Seahawk.mtl">
+      <Filter>Models</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Models\Boat.obj">
+      <Filter>Models</Filter>
+    </Object>
+    <Object Include="Models\Seahawk.obj">
+      <Filter>Models</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\boat_body_diffuse.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\boat_buffer_diffuse.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\boat_roof_accessory_diffuse.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\brick.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\dirt.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\plain.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_CCON.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_DASH.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_OBC.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_OSCL.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_OSCR.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_OSSP.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_OTC.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\TEX_SBMP.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\cupertin-lake_bk.tga">
+      <Filter>Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\cupertin-lake_dn.tga">
+      <Filter>Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\cupertin-lake_ft.tga">
+      <Filter>Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\cupertin-lake_lf.tga">
+      <Filter>Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\cupertin-lake_rt.tga">
+      <Filter>Textures\Skybox</Filter>
+    </Image>
+    <Image Include="Textures\Skybox\cupertin-lake_up.tga">
+      <Filter>Textures\Skybox</Filter>
+    </Image>
   </ItemGroup>
 </Project>

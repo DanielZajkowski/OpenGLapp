@@ -24,6 +24,7 @@
 #include "SpotLight.h"
 #include "Material.h"
 #include "Model.h"
+#include "Skybox.h"
 
 const float toRadians = 3.14159265f / 180.0f;
 
@@ -46,6 +47,8 @@ Material dullMaterial;
 
 Model boat;
 Model seahawk;
+
+Skybox skybox;
 
 DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
@@ -174,7 +177,7 @@ void RenderScene()
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
     glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-    dirtTexture.UseTexture();
+    plainTexture.UseTexture();
     dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[2]->RenderMesh();
 
@@ -186,7 +189,7 @@ void RenderScene()
 
     model = glm::mat4(1.0f);
     model = glm::rotate(model, -boatAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::translate(model, glm::vec3(-4.0f, -0.5f, 0.0f));
+    model = glm::translate(model, glm::vec3(-4.0f, 1.0f, 0.0f));
     model = glm::rotate(model, -90.0f * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::rotate(model, 20.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
     model = glm::rotate(model, -90.0f * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -258,6 +261,15 @@ void OmniShadowMapPass(PointLight* light)
 
 void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
+
+    glViewport(0, 0, 1366, 768);
+    // Clear window
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    // Combing two buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    skybox.DrawSkybox(viewMatrix, projectionMatrix);
+
     shaderList[0].UseShader();
 
     uniformModel = shaderList[0].GetModelLocation();
@@ -266,13 +278,6 @@ void RenderPass(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
     uniformEyePosition = shaderList[0].GetEyePositionLocation();
     uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
     uniformShininess = shaderList[0].GetShininessLocation();
-
-    glViewport(0, 0, 1366, 768);
-
-    // Clear window
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    // Combing two buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
@@ -325,9 +330,9 @@ int main()
     seahawk.LoadModel("Models/Seahawk.obj");
 
     mainLight = DirectionalLight(2048, 2048,
-                                1.0f, 1.0f, 1.0f,
-                                0.0f, 0.0f,
-                                0.0f, -15.0f, -10.0f);
+                                1.0f, 0.53f, 0.3f,
+                                0.1f, 0.9f,
+                                -10.0f, -12.0f, 18.5f);
 
     
     pointLights[0] = PointLight(1024, 1024,
@@ -335,14 +340,14 @@ int main()
                                 0.0f, 1.0f, 0.0f,
                                 0.0f, 0.4f,
                                 -2.0f, 2.0f, 0.0f,
-                                0.3f, 0.01f, 0.01f);
+                                0.3f, 0.2f, 0.1f);
     pointLightCount++;
     pointLights[1] = PointLight(1024, 1024,
                                 0.1f, 100.0f,
                                 0.0f, 0.0f, 1.0f,
                                 0.0f, 0.4f,
                                 2.0f, 2.0f, 0.0f,
-                                0.3f, 0.01f, 0.01f);
+                                0.3f, 0.2f, 0.1f);
     pointLightCount++;
 
     
@@ -364,6 +369,15 @@ int main()
                             1.0f, 0.0f, 0.0f,
                             20.0f);
     spotLightCount++;
+
+    std::vector<std::string> skyboxFaces;
+    skyboxFaces.push_back("Textures/Skybox/cupertin-lake_rt.tga");
+    skyboxFaces.push_back("Textures/Skybox/cupertin-lake_lf.tga");
+    skyboxFaces.push_back("Textures/Skybox/cupertin-lake_up.tga");
+    skyboxFaces.push_back("Textures/Skybox/cupertin-lake_dn.tga");
+    skyboxFaces.push_back("Textures/Skybox/cupertin-lake_bk.tga");
+    skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
+    skybox = Skybox(skyboxFaces);
 
     glm::mat4 projection = glm::perspective(glm::radians(60.0f), mainWindow.GetBufferWidth() / mainWindow.GetBufferHeight(), 0.1f, 100.0f);
 
